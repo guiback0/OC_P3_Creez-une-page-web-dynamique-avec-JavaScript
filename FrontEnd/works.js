@@ -2,10 +2,9 @@ let works = window.localStorage.getItem("works")
 
 if (works === null){
     const reponse = await fetch("http://localhost:5678/api/works");
-    let works = await reponse.json();
+    works = await reponse.json();
     const valueWorks = JSON.stringify(works);
     window.localStorage.setItem("works", valueWorks);
-    
 }else{
     works = JSON.parse(works);
 }
