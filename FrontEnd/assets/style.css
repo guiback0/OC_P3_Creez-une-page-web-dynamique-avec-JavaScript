@@ -153,7 +153,7 @@ h1 {
    font-family: "Syne";
    font-size: 22px;
    font-weight: 800;
-   color: #b1663c;
+   color: var(--secondColor);
 }
 
 h1 > span {
@@ -166,7 +166,7 @@ h2 {
    font-family: "Syne";
    font-weight: 700;
    font-size: 30px;
-   color: #1d6154;
+   color: var(--firstColor);
 }
 nav ul {
    display: flex;
@@ -179,7 +179,7 @@ nav li {
 }
 
 li:hover {
-   color: #b1663c;
+   color: var(--secondColor);
 }
 #introduction {
    display: flex;
@@ -330,7 +330,7 @@ input[type="submit"] {
    font-family: "Syne";
    font-weight: 700;
    color: white;
-   background-color: #1d6154;
+   background-color: var(--firstColor);
    margin: 2em auto;
    width: 180px;
    text-align: center;
