@@ -28,7 +28,7 @@ function generateProjects(works) {
 
 generateProjects(works);
 
-const filter = document.querySelectorAll(".filter");
+/* const filter = document.querySelectorAll(".filter");
 
 for (let i = 0; i < filter.length; i++) {
    const btn = filter[i];
@@ -46,4 +46,24 @@ for (let i = 0; i < filter.length; i++) {
       document.querySelector(".gallery").innerHTML = "";
       generateProjects(filteredProjects);
    });
-}
+} */
+
+
+const filtersBar = document.querySelector(".filtersBar");
+
+filtersBar.addEventListener("click", (e) => {
+   const id = e.target.dataset.id;
+   let filteredProjects;
+
+   if (!id) return
+   if (id === "0") {
+      filteredProjects = works;
+   } else {
+      filteredProjects = works.filter(
+         (works) => works.categoryId.toString() === id
+      );
+   }
+   document.querySelector(".gallery").innerHTML = "";
+   generateProjects(filteredProjects);
+   
+});
