@@ -15,18 +15,20 @@ document.addEventListener("submit", (e) => {
       })
         //on récupère la réponse
         .then((response) => {
-          //si status 200 on stocke les donnees dans le json
-          if (response.ok) {
-            return response.json();
+          //si utilisateur inconnu dans la base
+          if (response.status === 404 ) {
+            alert("User not found");
             //si les deux champs ne matchent pas
           } else if (response.status === 401) {
-            console.log("Unauthorized");
-            //si utilisateur inconnu dans la base
-          } else if (response.status === 404) {
-            console.log("User not found");
+            alert("Unauthorized");
+            //si status 200 on stocke les donnees dans le json
+          } else if (response.ok) {
+            return response.json();
           }
         })
-    
-    
-  
+        .then((user) => {
+          localStorage.setItem('token', user.token);
+          localStorage.setItem('userId', user.userId);
+          window.location.href = './index.html';
+        })
 });

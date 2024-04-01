@@ -67,3 +67,14 @@ filtersBar.addEventListener("click", (e) => {
    generateProjects(filteredProjects);
    
 });
+
+function connected() {
+   if (localStorage.getItem("token")) {
+      const login = document.getElementById("login");
+      login.style.display = "none";
+      const logout = document.getElementById("logout");
+      login.style.display = "block";
+   }
+}
+
+connected();

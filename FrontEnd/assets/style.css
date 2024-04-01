@@ -181,6 +181,11 @@ nav li {
 li:hover {
    color: var(--secondColor);
 }
+
+#logout{
+   display: none;
+}
+
 #introduction {
    display: flex;
    align-items: center;
