@@ -78,6 +78,8 @@ function connected() {
          localStorage.clear();
          window.location.reload();
        });
+       const modifyBtn = document.querySelector(".modify");
+       modifyBtn.style.display = "flex";
    }
 }
 

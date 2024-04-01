@@ -226,6 +226,7 @@ li:hover {
 }
 
 .modify{
+   display: none;
    position: absolute;
    margin-left: 700px;
    font-size: 18px;
