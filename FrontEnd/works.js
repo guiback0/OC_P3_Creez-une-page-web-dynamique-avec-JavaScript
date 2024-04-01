@@ -73,7 +73,11 @@ function connected() {
       const login = document.getElementById("login");
       login.style.display = "none";
       const logout = document.getElementById("logout");
-      login.style.display = "block";
+      logout.style.display = "block";
+      logout.addEventListener('click', () => {
+         localStorage.clear();
+         window.location.reload();
+       });
    }
 }
 
