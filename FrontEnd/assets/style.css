@@ -215,9 +215,20 @@ li:hover {
    flex-direction: column;
 }
 
-#portfolio h2 {
-   text-align: center;
+.portfolioHeader{
+   display: flex;
+   align-items: center;
    margin-bottom: 1em;
+}
+
+.portfolioHeader h2{
+   margin: auto;
+}
+
+.modify{
+   position: absolute;
+   margin-left: 700px;
+   font-size: 18px;
 }
 
 .filtersBar{
