@@ -14,9 +14,23 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="./assets/modal.css">
 	<script type="module" src="./categories.js"></script>
 	<script type="module" src="./works.js"></script>
+	<script type="module" src="./modal.js"></script>
 </head>
+
+<aside class="modal">
+	<div class="modalWrapper" id="editGallery">
+		<div class="modalHeader"><i class="fa-solid fa-xmark"></i></div>
+		<h3 class="modalTitle">Galerie photo</h3>
+		<div class="modalContent">
+		</div>
+		<button id="addPictureBtn">Ajouter une photo</button>
+		<a href="#" id="deleteGallery">Supprimer la galerie</a>
+	</div>
+	
+</aside>
 
 <body>
 	<header>
