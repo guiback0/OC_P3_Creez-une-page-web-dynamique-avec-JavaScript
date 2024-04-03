@@ -49,15 +49,13 @@ function generateProjectsOnModal(works) {
        const projectImage = document.createElement("img");
        projectImage.src = project.imageUrl;
        projectImage.alt = project.title
-       const projectCaption = document.createElement("figcaption");
-       projectCaption.innerText = "éditer";
        const trashCan = document.createElement("i");
        
       trashCan.classList.add("fa-solid", "fa-trash-can");
       trashCan.dataset.id = project.id;
  
        sectionProjects.appendChild(projectElement);
-       projectElement.append(projectImage, projectCaption, trashCan);
+       projectElement.append(projectImage, trashCan);
 
     }
  }
