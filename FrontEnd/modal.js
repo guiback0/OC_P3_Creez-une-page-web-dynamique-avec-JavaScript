@@ -2,6 +2,8 @@ const modal = document.querySelector(".modal")
 const modalBtn = document.querySelector(".modify")
 const closeModal = modal.querySelector(".fa-xmark")
 
+
+
 let works = window.localStorage.getItem("works");
 
 if (works === null) {
@@ -14,19 +16,25 @@ if (works === null) {
 }
 
 modalBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-   
-    modal.style.display = "flex";
-    generateProjectsOnModal(works);
-   
+   e.preventDefault();
+  
+   modal.style.display = "flex";
+   generateProjectsOnModal(works);
 
-})
+   const deleteProjects = modal.querySelectorAll(".fa-trash-can");
+   deleteProjects.forEach(deleteProject => {
+       deleteProject.addEventListener("click", (e) => {
+           e.preventDefault();
+           const id = e.target.dataset.id;
+           deleteWork(id);
+       });
+   });
+});
 
 closeModal.addEventListener("click", (e) => {
-    e.preventDefault();
-    modal.style.display = "none";
+   e.preventDefault();
+   modal.style.display = "none";
 })
-
 
 function generateProjectsOnModal(works) {
       const sectionProjects = modal.querySelector(".modalContent");
@@ -46,12 +54,36 @@ function generateProjectsOnModal(works) {
        const trashCan = document.createElement("i");
        
       trashCan.classList.add("fa-solid", "fa-trash-can");
+      trashCan.dataset.id = project.id;
  
        sectionProjects.appendChild(projectElement);
        projectElement.append(projectImage, projectCaption, trashCan);
 
-      
     }
  }
  
- 
+ function deleteWork(id) {
+   let token = localStorage.getItem("token")
+   fetch("http://localhost:5678/api/works/" + id, {
+      method: "DELETE",
+      headers: {
+        accept: "*/*",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      
+      if (response.ok) {
+        alert("Projet supprimé avec succés")
+
+        worksData = worksData.filter((work) => work.id != id);
+        
+        generateProjects(worksData);
+        generateProjectsOnModal(worksData);
+        
+      } else {
+        alert("Erreur : " + response.status);
+        closeModal;
+      }
+    });
+  }
+  
