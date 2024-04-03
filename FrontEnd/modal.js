@@ -1,6 +1,6 @@
 const modal = document.querySelector(".modal")
 const modalBtn = document.querySelector(".modify")
-const closeModal = document.getElementById("fa-xmarl")
+const closeModal = modal.querySelector(".fa-xmark")
 
 let works = window.localStorage.getItem("works");
 
@@ -15,40 +15,26 @@ if (works === null) {
 
 modalBtn.addEventListener("click", (e) => {
     e.preventDefault();
+   
     modal.style.display = "flex";
+    generateProjectsOnModal(works);
+   
 
-
-    for (let i = 0; i < works.length; i++) {
-        const project = works[i];
-        const sectionProjects = document.querySelector(".modalContent");
-        const projectElement = document.createElement("figure");
-        projectElement.dataset.id = project.id;
-        projectElement.className = "miniWork"
-        const projectImage = document.createElement("img");
-        projectImage.src = project.imageUrl;
-        projectImage.alt = project.title
-        const projectCaption = document.createElement("figcaption");
-        projectCaption.innerText = "éditer";
-  
-        sectionProjects.appendChild(projectElement);
-        projectElement.appendChild(projectImage);
-        projectElement.appendChild(projectCaption);
-        console.log("yes")
-     }
 })
 
 closeModal.addEventListener("click", (e) => {
     e.preventDefault();
     modal.style.display = "none";
-    console.log("yes")
 })
 
 
-/* function generateProjectsOnModal(works) {
-    console.log("yes1")
-    for (let i = 0; i < works.length; i++) {
+function generateProjectsOnModal(works) {
+      const sectionProjects = modal.querySelector(".modalContent");
+       sectionProjects.innerHTML = "";
+
+      for (let i = 0; i < works.length; i++) {
        const project = works[i];
-       const sectionProjects = document.querySelector(".modalContent");
+       
        const projectElement = document.createElement("figure");
        projectElement.dataset.id = project.id;
        projectElement.className = "miniWork"
@@ -57,12 +43,15 @@ closeModal.addEventListener("click", (e) => {
        projectImage.alt = project.title
        const projectCaption = document.createElement("figcaption");
        projectCaption.innerText = "éditer";
+       const trashCan = document.createElement("i");
+       
+      trashCan.classList.add("fa-solid", "fa-trash-can");
  
        sectionProjects.appendChild(projectElement);
-       projectElement.appendChild(projectImage);
-       projectElement.appendChild(projectCaption);
-       console.log("yes")
+       projectElement.append(projectImage, projectCaption, trashCan);
+
+      
     }
  }
  
- generateProjectsOnModal(works); */
+ 
