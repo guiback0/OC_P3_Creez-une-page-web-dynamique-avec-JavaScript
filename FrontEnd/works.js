@@ -21,8 +21,7 @@ function generateProjects(works) {
       projectCaption.innerText = project.title;
 
       sectionProjects.appendChild(projectElement);
-      projectElement.appendChild(projectImage);
-      projectElement.appendChild(projectCaption);
+      projectElement.append(projectImage, projectCaption);
    }
 }
 
