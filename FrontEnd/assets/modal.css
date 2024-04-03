@@ -76,4 +76,18 @@
 	color: var(--secondColor);
 }
 
-
+.miniWork {
+	position: relative;
+}
+.miniWork i {
+	display: block;
+	box-sizing: border-box;
+	background-color: #000000;
+	color: #FFFFFF;
+	font-size: 0.7em;
+	padding: 4px 5px;
+	border-radius: 2px;
+	position: absolute;
+	top: 0.4em;
+	right: 0.8em;	
+}
