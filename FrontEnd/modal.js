@@ -4,6 +4,8 @@ const editModalBtn = document.querySelector(".modify")
 const addPictureModal = modal.querySelector("#addPicture")
 const addPictureModalBtn = modal.querySelector("#addPictureBtn")
 const closeModalBtn = modal.querySelectorAll(".fa-xmark");
+const pictureInput = modal.querySelector("#photo")
+
 
 
 let works = window.localStorage.getItem("works");
@@ -97,3 +99,20 @@ function generateProjectsOnModal(works) {
     });
   }
   
+
+  pictureInput.addEventListener("change", (e) => {
+    e.preventDefault();
+    picturePreview()
+  })
+
+  function picturePreview(){
+    
+    const [file] = pictureInput.files;
+    if (file) {
+      document.querySelector("#picturePreviewImg").src = URL.createObjectURL(file);
+      document.querySelector("#picturePreview").style.display = "flex";
+      document.querySelector("#labelPhoto").style.display = "none";
+    }
+  
+  }
+    
