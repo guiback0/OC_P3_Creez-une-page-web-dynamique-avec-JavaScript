@@ -1,7 +1,9 @@
 const modal = document.querySelector(".modal")
-const modalBtn = document.querySelector(".modify")
-const closeModal = modal.querySelector(".fa-xmark")
-
+const editModal = modal.querySelector("#editGallery")
+const editModalBtn = document.querySelector(".modify")
+const addPictureModal = modal.querySelector("#addPicture")
+const addPictureModalBtn = modal.querySelector("#addPictureBtn")
+const closeModalBtn = modal.querySelectorAll(".fa-xmark");
 
 
 let works = window.localStorage.getItem("works");
@@ -15,7 +17,7 @@ if (works === null) {
    works = JSON.parse(works);
 }
 
-modalBtn.addEventListener("click", (e) => {
+editModalBtn.addEventListener("click", (e) => {
    e.preventDefault();
   
    modal.style.display = "flex";
@@ -29,15 +31,25 @@ modalBtn.addEventListener("click", (e) => {
            deleteWork(id);
        });
    });
+
 });
 
-closeModal.addEventListener("click", (e) => {
-   e.preventDefault();
-   modal.style.display = "none";
+addPictureModalBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  editModal.style.display = "none";
+  addPictureModal.style.display = "flex"
 })
 
+   closeModalBtn.forEach(closeModalBtn => {
+       closeModalBtn.addEventListener("click", (e) => {
+           modal.style.display = "none"
+           editModal.style.display = "flex";
+           addPictureModal.style.display = "none"
+       });
+      });
+
 function generateProjectsOnModal(works) {
-      const sectionProjects = modal.querySelector(".modalContent");
+      const sectionProjects = editModal.querySelector(".modalContent");
        sectionProjects.innerHTML = "";
 
       for (let i = 0; i < works.length; i++) {

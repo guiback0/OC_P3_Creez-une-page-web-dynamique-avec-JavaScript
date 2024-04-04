@@ -95,7 +95,7 @@
 }
 
 #addPicture {
-	display: flex;
+	display: none;
 }
 #addPicture .modalHeader {
 	justify-content: space-between; 
