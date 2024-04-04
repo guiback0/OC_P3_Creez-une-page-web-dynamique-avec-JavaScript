@@ -1,3 +1,6 @@
+import {generateFiltersOnModal} from "./categories.js";
+
+
 const modal = document.querySelector(".modal")
 const editModal = modal.querySelector("#editGallery")
 const editModalBtn = document.querySelector(".modify")
@@ -40,6 +43,7 @@ addPictureModalBtn.addEventListener("click", (e) => {
   e.preventDefault();
   editModal.style.display = "none";
   addPictureModal.style.display = "flex"
+  generateFiltersOnModal()
 })
 
    closeModalBtn.forEach(closeModalBtn => {
@@ -116,3 +120,4 @@ function generateProjectsOnModal(works) {
   
   }
     
+

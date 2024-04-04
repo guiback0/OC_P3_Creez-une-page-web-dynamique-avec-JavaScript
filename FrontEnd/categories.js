@@ -34,6 +34,22 @@ function generateFilters(categories){
 generateFilters(categories);
 
 
+export function generateFiltersOnModal() {
+    const categoryForm = document.querySelector("#selectCategory");
+    categoryForm.innerHTML = "";
+
+    let option = document.createElement("option");
+    categoryForm.appendChild(option);
+    categories.forEach((categorie) => {
+        option = document.createElement("option");
+        option.value = categorie.name;
+        option.innerText = categorie.name;
+        option.id = categorie.id;
+        categoryForm.appendChild(option);
+      });
+}
+
+
 
 
 
