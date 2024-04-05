@@ -20,45 +20,8 @@
 	<script type="module" src="./modal.js"></script>
 </head>
 
-<aside class="modal">
-	<div class="modalWrapper" id="editGallery">
-		<div class="modalHeader">
-			<i class="fa-solid fa-xmark"></i>
-		</div>
-		<h3 class="modalTitle">Galerie photo</h3>
-		<div class="modalContent">
-		</div>
-		<button id="addPictureBtn">Ajouter une photo</button>
-		<a href="#" id="deleteGallery">Supprimer la galerie</a>
-	</div>
-
-	<div class="modalWrapper" id="addPicture">
-		<div class="modalHeader">
-			<i class="fa-solid fa-arrow-left"></i>
-			<i class="fa-solid fa-xmark"></i></div>
-		<h3 class="modalTitle">Ajout photo</h3>
-		<div class="modalContent">
-			<form id="addPictureForm" name="addPictureForm">
-				<div id="labelPhoto">
-					<i class="fa-solid fa-image"></i>
-					<input type="file" class="photo" name="photo" id="photo" accept="image/png, image/jpeg" required>
-					<span>jpg, png : 4mo max</span>
-				</div>
-				<div id="picturePreview">
-					<img src="" alt="votre image" id="picturePreviewImg">
-				</div>
-				<label for="title">Titre</label>
-				<input type="text" id="title" name="title" required>
-				<label for="selectCategory">Catégorie</label>
-				<select id="selectCategory" name="selectCategory">
-				</select>
-			</form>
-		</div>
-		<input type="submit" id="valider" value="valider">
-	</div>
-</aside>
-
 <body>
+
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
@@ -71,6 +34,45 @@
 			</ul>
 		</nav>
 	</header>
+
+	<aside class="modal">
+		<div class="modalWrapper" id="editGallery">
+			<div class="modalHeader">
+				<i class="fa-solid fa-xmark"></i>
+			</div>
+			<h3 class="modalTitle">Galerie photo</h3>
+			<div class="modalContent">
+			</div>
+			<button id="addPictureBtn">Ajouter une photo</button>
+			<a href="#" id="deleteGallery">Supprimer la galerie</a>
+		</div>
+
+		<div class="modalWrapper" id="addPicture">
+			<div class="modalHeader">
+				<i class="fa-solid fa-arrow-left"></i>
+				<i class="fa-solid fa-xmark"></i></div>
+			<h3 class="modalTitle">Ajout photo</h3>
+			<div class="modalContent">
+				<form id="addPictureForm" name="addPictureForm">
+					<div id="labelPhoto">
+						<i class="fa-solid fa-image"></i>
+						<input type="file" class="photo" name="photo" id="photo" accept="image/png, image/jpeg"
+							required>
+						<span>jpg, png : 4mo max</span>
+					</div>
+					<div id="picturePreview">
+						<img src="" alt="votre image" id="picturePreviewImg">
+					</div>
+					<label for="title">Titre</label>
+					<input type="text" id="title" name="title" required>
+					<label for="selectCategory">Catégorie</label>
+					<select id="selectCategory" name="selectCategory">
+					</select>
+				</form>
+			</div>
+			<input type="submit" id="valider" value="valider">
+		</div>
+	</aside>
 
 	<main>
 		<section id="introduction">
@@ -92,10 +94,10 @@
 		<section id="portfolio">
 			<div class="portfolioHeader">
 				<h2>Mes Projets</h2>
-			<a href="#" class="modify">
-				<i class="fa-regular fa-pen-to-square"></i>
-				<span>Modifier</span>
-			</a>
+				<a href="#" class="modify">
+					<i class="fa-regular fa-pen-to-square"></i>
+					<span>Modifier</span>
+				</a>
 			</div>
 			<div class="gallery">
 
@@ -124,6 +126,7 @@
 			</ul>
 		</nav>
 	</footer>
+
 </body>
 
 </html>
