@@ -102,7 +102,7 @@
 
 #addPicture {
    display: none;
-   height: 610px;
+   height: 570px;
 }
 
 #addPicture .modalHeader {
@@ -163,7 +163,6 @@ input.photo {
 #picturePreview {
    display: none;
    background-color: #e8f1f6;
-   height: 200px;
    width: 100%;
    justify-content: center;
 }
