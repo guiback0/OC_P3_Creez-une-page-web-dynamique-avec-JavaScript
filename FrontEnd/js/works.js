@@ -47,14 +47,13 @@ for (let i = 0; i < filter.length; i++) {
    });
 } */
 
-
 const filtersBar = document.querySelector(".filtersBar");
 
 filtersBar.addEventListener("click", (e) => {
    const id = e.target.dataset.id;
    let filteredProjects;
 
-   if (!id) return
+   if (!id) return;
    if (id === "0") {
       filteredProjects = works;
    } else {
@@ -64,7 +63,6 @@ filtersBar.addEventListener("click", (e) => {
    }
    document.querySelector(".gallery").innerHTML = "";
    generateProjects(filteredProjects);
-   
 });
 
 function connected() {
@@ -73,12 +71,12 @@ function connected() {
       login.style.display = "none";
       const logout = document.getElementById("logout");
       logout.style.display = "block";
-      logout.addEventListener('click', () => {
+      logout.addEventListener("click", () => {
          localStorage.clear();
          window.location.reload();
-       });
-       const modifyBtn = document.querySelector(".modify");
-       modifyBtn.style.display = "flex";
+      });
+      const modifyBtn = document.querySelector(".modify");
+      modifyBtn.style.display = "flex";
    }
 }
 
