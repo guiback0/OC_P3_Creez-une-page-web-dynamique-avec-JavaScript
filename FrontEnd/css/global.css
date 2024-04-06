@@ -222,7 +222,7 @@ nav ul {
 
 nav li a {
    padding: 0 30px;
-   font-size: 1.2em;
+   font-size: 16px;
    color: black;
 }
 
@@ -292,7 +292,8 @@ nav li img {
    display: none;
    position: absolute;
    margin-left: 700px;
-   font-size: 18px;
+   font-size: inherit;
+   gap: 10px;
 }
 
 .filtersBar {
@@ -303,16 +304,19 @@ nav li img {
 }
 
 button {
+   display: flex;
+   flex-wrap: nowrap;
+   justify-content: center;
+   align-items: center;
    font-family: "Syne";
    font-weight: 700;
    color: var(--firstColor);
    background-color: white;
    height: 36px;
-   width: 180px;
-   text-align: center;
+   min-width: 100px;
    border: solid 1px var(--firstColor);
    border-radius: 60px;
-   font-size: 0.9em;
+   font-size: 16px;
    cursor: pointer;
 }
 
@@ -373,7 +377,7 @@ figcaption {
 
 #contact input {
    height: 36px;
-   font-size: 0.9em;
+   font-size: 14px;
    border: none;
    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
@@ -424,7 +428,7 @@ footer nav ul {
 
 #login input {
    height: 36px;
-   font-size: 0.9em;
+   font-size: 14px;
    border: none;
    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
