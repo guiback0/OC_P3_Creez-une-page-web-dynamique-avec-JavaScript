@@ -60,9 +60,10 @@
 			<div class="modalContent">
 				<form id="addPictureForm" name="addPictureForm">
 					<div id="labelPhoto">
-						<i class="fa-solid fa-image"></i>
-						<input type="file" class="photo" name="photo" id="photo" accept="image/png, image/jpeg"
-							required>
+						<i class="fa-regular fa-image"></i>
+						<label for="addPictureLinks" class="photo" id="addPicLabel">+ Ajouter photo</label>
+						<input type="file" class="photo" name="photo" id="addPictureLinks"
+							accept="image/png, image/jpeg" required>
 						<span>jpg, png : 4mo max</span>
 					</div>
 					<div id="picturePreview">
@@ -75,7 +76,7 @@
 					</select>
 				</form>
 			</div>
-			<input type="submit" id="validate" value="validate">
+			<input type="submit" id="validate" value="Valider">
 		</div>
 	</aside>
 

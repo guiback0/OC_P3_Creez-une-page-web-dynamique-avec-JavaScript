@@ -80,9 +80,6 @@
    margin-top: 30px;
    padding: 10px 49px;
 }
-#deleteGallery {
-   color: var(--secondColor);
-}
 
 .miniWork {
    position: relative;
@@ -105,14 +102,11 @@
 
 #addPicture {
    display: none;
+   height: 610px;
 }
 
 #addPicture .modalHeader {
    justify-content: space-between;
-}
-#validate {
-   background-color: #a7a7a7;
-   width: 37%;
 }
 
 #addPictureForm {
@@ -126,20 +120,44 @@
    display: flex;
    flex-direction: column;
    align-items: center;
-   height: 200px;
+   height: 150px;
    background-color: #e8f1f6;
    border-radius: 3px;
    margin-bottom: 30px;
    text-align: center;
    width: 100%;
-   padding-top: 25px;
+   padding-top: 20px;
    position: relative;
-   box-sizing: border-box;
 }
 
 #labelPhoto span {
    font-size: 10px;
    font-weight: 400;
+}
+
+#labelPhoto i {
+   font-size: 70px;
+   color: #b9c5cc;
+}
+
+label.photo {
+   background: #cbd6dc;
+   min-width: 173px;
+   min-height: 36px;
+   border-radius: 50px;
+   cursor: pointer;
+   margin: 7px 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+label.addPic:hover {
+   filter: contrast(2);
+}
+
+input.photo {
+   display: none;
 }
 
 #picturePreview {
@@ -158,4 +176,22 @@
 
 #title {
    margin-bottom: 11px;
+}
+
+select {
+   height: 51px;
+   font-size: 14px;
+   border: none;
+   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+   font-family: "Work Sans";
+   font-size: 14px;
+   color: #444444;
+}
+
+#validate {
+   margin: 0;
+   margin-top: 30px;
+   background-color: #a7a7a7;
+   height: 36px;
+   width: 42%;
 }
