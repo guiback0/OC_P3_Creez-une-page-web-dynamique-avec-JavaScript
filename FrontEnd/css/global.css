@@ -98,6 +98,7 @@ video {
    font: inherit;
    vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -112,17 +113,21 @@ nav,
 section {
    display: block;
 }
+
 body {
    line-height: 1;
 }
+
 ol,
 ul {
    list-style: none;
 }
+
 blockquote,
 q {
    quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -130,22 +135,27 @@ q:after {
    content: "";
    content: none;
 }
+
 table {
    border-collapse: collapse;
    border-spacing: 0;
 }
-/** end reset css**/
+
+/********** end reset css **********/
+
 body {
    max-width: 1140px;
    margin: auto;
    font-family: "Work Sans";
    font-size: 14px;
 }
+
 header {
    display: flex;
    justify-content: space-between;
    margin: 50px 0;
 }
+
 section {
    margin: 50px 0;
 }
@@ -187,7 +197,7 @@ input[type="submit"] {
    font-weight: 700;
    color: white;
    background-color: var(--firstColor);
-   margin: 2em auto;
+   margin: 2.2em auto;
    width: 180px;
    text-align: center;
    border-radius: 60px;
@@ -201,8 +211,13 @@ nav ul {
    list-style-type: none;
 }
 nav li a {
-   padding: 0 10px;
+   padding: 0 30px;
    font-size: 1.2em;
+}
+
+nav li img {
+   padding-left: 30px;
+   height: 22px;
 }
 
 #logout {
@@ -302,11 +317,8 @@ button:hover {
 /*********** Contact form ***********/
 
 #contact {
-   width: 50%;
+   width: 33.3%;
    margin: auto;
-}
-
-#contact > * {
    text-align: center;
 }
 
@@ -378,7 +390,11 @@ footer nav ul {
    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-#login a {
+#login span {
    display: flex;
    justify-content: center;
+}
+
+#login span:hover {
+   text-decoration: underline;
 }
