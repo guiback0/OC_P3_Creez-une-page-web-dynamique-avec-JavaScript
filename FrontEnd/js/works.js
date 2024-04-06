@@ -15,13 +15,16 @@ function generateProjects(works) {
       const sectionProjects = document.querySelector(".gallery");
       const projectElement = document.createElement("figure");
       projectElement.dataset.id = project.id;
+      const projectContainerImage = document.createElement("div");
+      projectContainerImage.className = "pictureContainer";
       const projectImage = document.createElement("img");
       projectImage.src = project.imageUrl;
       const projectCaption = document.createElement("figcaption");
       projectCaption.innerText = project.title;
 
       sectionProjects.appendChild(projectElement);
-      projectElement.append(projectImage, projectCaption);
+      projectContainerImage.appendChild(projectImage);
+      projectElement.append(projectContainerImage, projectCaption);
    }
 }
 
