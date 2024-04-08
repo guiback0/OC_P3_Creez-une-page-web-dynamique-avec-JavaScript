@@ -8,6 +8,7 @@
 :root {
    --firstColor: #1d6154;
    --secondColor: #b1663c;
+   --hoverBtn: #0e2f28;
 }
 
 html,
@@ -217,7 +218,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-   background-color: black;
+   background-color: var(--hoverBtn);
 }
 
 /*********** Header ***********/
@@ -253,6 +254,33 @@ nav li img {
 
 #logout {
    display: none;
+}
+
+/*********** Edit Banner ***********/
+
+.editBanner {
+   display: none;
+   position: sticky;
+
+   margin-left: -50%;
+   justify-content: center;
+   align-items: center;
+   height: 59px;
+   width: 200%;
+   margin-bottom: 59px;
+   top: 0;
+   z-index: 1;
+   gap: 11px;
+   background: black;
+   color: white;
+   font-size: 16px;
+}
+
+.edit-btn {
+   position: absolute;
+   transform: translateY(-50px);
+   left: 60%;
+   gap: 11px;
 }
 
 /*********** Main ***********/
@@ -337,7 +365,6 @@ button {
 button:hover {
    color: white;
    background-color: var(--firstColor);
-   border: none;
 }
 
 .gallery {

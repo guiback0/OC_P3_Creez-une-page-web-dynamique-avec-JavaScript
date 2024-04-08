@@ -1,10 +1,10 @@
-let works = window.localStorage.getItem("works");
+let works = window.sessionStorage.getItem("works");
 
 if (works === null) {
    const reponse = await fetch("http://localhost:5678/api/works");
    works = await reponse.json();
    const valueWorks = JSON.stringify(works);
-   window.localStorage.setItem("works", valueWorks);
+   window.sessionStorage.setItem("works", valueWorks);
 } else {
    works = JSON.parse(works);
 }
@@ -31,31 +31,44 @@ export function generateProjects(works) {
 generateProjects(works);
 
 const filtersBar = document.querySelector(".filtersBar");
+const filters = filtersBar.querySelectorAll(".filter");
 
 filtersBar.addEventListener("click", (e) => {
+   filters.forEach((filter) => {
+      filter.style.backgroundColor = "white";
+      filter.style.color = "var(--firstColor)";
+   });
    const id = e.target.dataset.id;
    let filteredProjects;
+
+   const filter = document.querySelector(`.filter[data-id="${id}"]`);
 
    if (!id) return;
    if (id === "0") {
       filteredProjects = works;
+      filter.style.backgroundColor = "var(--firstColor)";
+      filter.style.color = "white";
    } else {
       filteredProjects = works.filter(
          (works) => works.categoryId.toString() === id
       );
+      filter.style.backgroundColor = "var(--firstColor)";
+      filter.style.color = "white";
    }
    document.querySelector(".gallery").innerHTML = "";
    generateProjects(filteredProjects);
 });
 
 function connected() {
-   if (localStorage.getItem("token")) {
+   if (sessionStorage.getItem("token")) {
       const login = document.getElementById("login");
       login.style.display = "none";
       const logout = document.getElementById("logout");
+      const editBanner = document.querySelector(".editBanner");
       logout.style.display = "block";
+      editBanner.style.display = "flex";
       logout.addEventListener("click", () => {
-         localStorage.clear();
+         sessionStorage.clear();
          window.location.reload();
       });
       const modifyBtn = document.querySelector(".modify");

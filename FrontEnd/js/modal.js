@@ -11,13 +11,13 @@ const pictureInput = modal.querySelector("#photo");
 const newWorkFormSubmit = modal.querySelector("#validate");
 const goingBack = modal.querySelector(".fa-arrow-left");
 
-let works = window.localStorage.getItem("works");
+let works = window.sessionStorage.getItem("works");
 
 if (works === null) {
    const reponse = await fetch("http://localhost:5678/api/works");
    works = await reponse.json();
    const valueWorks = JSON.stringify(works);
-   window.localStorage.setItem("works", valueWorks);
+   window.sessionStorage.setItem("works", valueWorks);
 } else {
    works = JSON.parse(works);
 }
@@ -34,6 +34,8 @@ editModalBtn.addEventListener("click", (e) => {
          e.preventDefault();
          const id = e.target.dataset.id;
          deleteWork(id);
+         sessionStorage.removeItem("works");
+         window.location.reload();
       });
    });
 });
@@ -66,7 +68,6 @@ pictureInput.addEventListener("change", (e) => {
 
 addPictureModal.addEventListener("change", (e) => {
    e.preventDefault();
-   console.log("yes");
    changeSubmitBtnColor();
 });
 
@@ -113,7 +114,7 @@ function generateProjectsOnModal(works) {
 }
 
 function deleteWork(id) {
-   let token = localStorage.getItem("token");
+   let token = sessionStorage.getItem("token");
    fetch("http://localhost:5678/api/works/" + id, {
       method: "DELETE",
       headers: {
@@ -151,7 +152,7 @@ newWorkFormSubmit.addEventListener("click", (e) => {
 });
 
 function postNewWork() {
-   let token = localStorage.getItem("token");
+   let token = sessionStorage.getItem("token");
    const select = document.getElementById("selectCategory");
    const title = document.getElementById("title").value;
    const categoryName = select.options[select.selectedIndex].innerText;
@@ -164,7 +165,6 @@ function postNewWork() {
       formData.append("image", image);
       formData.append("title", title);
       formData.append("category", categoryId);
-      console.log(formData);
       sendNewData(token, formData, title, categoryName);
    }
 }
@@ -202,26 +202,10 @@ function sendNewData(token, formData, title, categoryName) {
             console.error("Erreur:", response.status);
          }
       })
-      .then((data) => {
-         addToWorksData(data, categoryName);
-         generateProjects(works);
+      .then(() => {
          document.querySelector(".modal").style.display = "none";
+         sessionStorage.removeItem("works");
+         location.reload();
       })
       .catch((error) => console.error("Erreur:", error));
-}
-
-function addToWorksData(data, categoryName) {
-   if (!data || !data.title || !data.id || !data.categoryId || !data.imageUrl) {
-      console.error("Error: Invalid data received");
-      return;
-   }
-
-   let newWork = {
-      title: data.title,
-      id: data.id,
-      category: { id: data.categoryId, name: categoryName },
-      imageUrl: data.imageUrl,
-   };
-
-   worksData.push(newWork);
 }
