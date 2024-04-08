@@ -9,7 +9,7 @@ if (works === null) {
    works = JSON.parse(works);
 }
 
-function generateProjects(works) {
+export function generateProjects(works) {
    for (let i = 0; i < works.length; i++) {
       const project = works[i];
       const sectionProjects = document.querySelector(".gallery");

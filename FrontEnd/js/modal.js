@@ -1,4 +1,5 @@
 import { generateFiltersOnModal } from "./categories.js";
+import { generateProjects } from "./works.js";
 
 const modal = document.querySelector(".modal");
 const editModal = modal.querySelector("#editGallery");
@@ -7,6 +8,7 @@ const addPictureModal = modal.querySelector("#addPicture");
 const addPictureModalBtn = modal.querySelector("#addPictureBtn");
 const closeModalBtn = modal.querySelectorAll(".fa-xmark");
 const pictureInput = modal.querySelector("#photo");
+const newWorkFormSubmit = modal.querySelector("#validate");
 
 let works = window.localStorage.getItem("works");
 
@@ -109,4 +111,85 @@ function picturePreview() {
       document.querySelector("#picturePreview").style.display = "flex";
       document.querySelector("#labelPhoto").style.display = "none";
    }
+}
+
+newWorkFormSubmit.addEventListener("click", (e) => {
+   e.preventDefault();
+   postNewWork();
+});
+
+function postNewWork() {
+   let token = localStorage.getItem("token");
+   const select = document.getElementById("selectCategory");
+   const title = document.getElementById("title").value;
+   const categoryName = select.options[select.selectedIndex].innerText;
+   const categoryId = select.options[select.selectedIndex].id;
+   const image = document.getElementById("photo").files[0];
+   let validity = formValidation(image, title, categoryId);
+
+   if (validity === true) {
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("title", title);
+      formData.append("category", categoryId);
+      console.log(formData);
+      sendNewData(token, formData, title, categoryName);
+   }
+}
+
+function formValidation(image, title, categoryId) {
+   if (image == undefined) {
+      alert("Veuillez ajouter une image");
+      return false;
+   }
+   if (title.trim().length == 0) {
+      alert("Veuillez ajouter un titre");
+      return false;
+   }
+   if (categoryId == "") {
+      alert("Veuillez choisir une catégorie");
+      return false;
+   } else {
+      return true;
+   }
+}
+
+function sendNewData(token, formData, title, categoryName) {
+   fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+         authorization: `Bearer ${token}`,
+      },
+      body: formData,
+   })
+      .then((response) => {
+         if (response.ok) {
+            alert("Nouveau fichier envoyé avec succés : " + title);
+            return response.json();
+         } else {
+            console.error("Erreur:", response.status);
+         }
+      })
+      .then((data) => {
+         addToWorksData(data, categoryName);
+         generateProjects(works);
+         document.querySelector(".modal").style.display = "none";
+      })
+      .catch((error) => console.error("Erreur:", error));
+}
+
+function addToWorksData(data, categoryName) {
+   if (!data || !data.title || !data.id || !data.categoryId || !data.imageUrl) {
+      console.error("Error: Invalid data received");
+      return;
+   }
+
+   let newWork = {
+      title: data.title,
+      id: data.id,
+      category: { id: data.categoryId, name: categoryName },
+      imageUrl: data.imageUrl,
+   };
+
+   worksData.push(newWork);
 }
