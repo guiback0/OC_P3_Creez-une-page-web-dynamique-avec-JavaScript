@@ -9,6 +9,7 @@ const addPictureModalBtn = modal.querySelector("#addPictureBtn");
 const closeModalBtn = modal.querySelectorAll(".fa-xmark");
 const pictureInput = modal.querySelector("#photo");
 const newWorkFormSubmit = modal.querySelector("#validate");
+const goingBack = modal.querySelector(".fa-arrow-left");
 
 let works = window.localStorage.getItem("works");
 
@@ -49,7 +50,43 @@ closeModalBtn.forEach((closeModalBtn) => {
       modal.style.display = "none";
       editModal.style.display = "flex";
       addPictureModal.style.display = "none";
+      document.getElementById("title").value = "";
+      document.getElementById("selectCategory").selectedIndex = 0;
+      document.getElementById("photo").value = null;
+      document.querySelector("#picturePreviewImg").src = null;
+      document.querySelector("#picturePreview").style.display = "none";
+      document.querySelector("#labelPhoto").style.display = "flex";
    });
+});
+
+pictureInput.addEventListener("change", (e) => {
+   e.preventDefault();
+   picturePreview();
+});
+
+addPictureModal.addEventListener("change", (e) => {
+   e.preventDefault();
+   console.log("yes");
+   changeSubmitBtnColor();
+});
+
+function changeSubmitBtnColor() {
+   const select = document.getElementById("selectCategory");
+   if (
+      document.getElementById("title").value !== "" &&
+      document.getElementById("photo").files[0] !== undefined &&
+      select.options[select.selectedIndex].id !== ""
+   ) {
+      newWorkFormSubmit.style.backgroundColor = "var(--firstColor)";
+   } else {
+      newWorkFormSubmit.style.backgroundColor = "#a7a7a7";
+   }
+}
+
+goingBack.addEventListener("click", (e) => {
+   e.preventDefault();
+   editModal.style.display = "flex";
+   addPictureModal.style.display = "none";
 });
 
 function generateProjectsOnModal(works) {
@@ -93,15 +130,10 @@ function deleteWork(id) {
          generateProjectsOnModal(worksData);
       } else {
          alert("Erreur : " + response.status);
-         closeModal;
+         /* closeModal; */
       }
    });
 }
-
-pictureInput.addEventListener("change", (e) => {
-   e.preventDefault();
-   picturePreview();
-});
 
 function picturePreview() {
    const [file] = pictureInput.files;
