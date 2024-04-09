@@ -33,10 +33,11 @@ generateProjects(works);
 const filtersBar = document.querySelector(".filtersBar");
 const filters = filtersBar.querySelectorAll(".filter");
 
+/* TODO : gestion des class et non des couleurs */
+
 filtersBar.addEventListener("click", (e) => {
    filters.forEach((filter) => {
-      filter.style.backgroundColor = "white";
-      filter.style.color = "var(--firstColor)";
+      filter.classList.remove("active");
    });
    const id = e.target.dataset.id;
    let filteredProjects;
@@ -46,14 +47,12 @@ filtersBar.addEventListener("click", (e) => {
    if (!id) return;
    if (id === "0") {
       filteredProjects = works;
-      filter.style.backgroundColor = "var(--firstColor)";
-      filter.style.color = "white";
+      filter.classList.add("active");
    } else {
       filteredProjects = works.filter(
          (works) => works.categoryId.toString() === id
       );
-      filter.style.backgroundColor = "var(--firstColor)";
-      filter.style.color = "white";
+      filter.classList.add("active");
    }
    document.querySelector(".gallery").innerHTML = "";
    generateProjects(filteredProjects);

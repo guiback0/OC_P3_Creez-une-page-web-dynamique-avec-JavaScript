@@ -158,9 +158,9 @@ function postNewWork() {
    const categoryName = select.options[select.selectedIndex].innerText;
    const categoryId = select.options[select.selectedIndex].id;
    const image = document.getElementById("photo").files[0];
-   let validity = formValidation(image, title, categoryId);
+   let isValid = formValidation(image, title, categoryId);
 
-   if (validity === true) {
+   if (isValid === true) {
       const formData = new FormData();
       formData.append("image", image);
       formData.append("title", title);
@@ -168,6 +168,7 @@ function postNewWork() {
       sendNewData(token, formData, title, categoryName);
    }
 }
+/* TODO : raccourcir */
 
 function formValidation(image, title, categoryId) {
    if (image == undefined) {
@@ -186,7 +187,7 @@ function formValidation(image, title, categoryId) {
    }
 }
 
-function sendNewData(token, formData, title, categoryName) {
+function sendNewData(token, formData, title) {
    fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers: {
@@ -199,6 +200,7 @@ function sendNewData(token, formData, title, categoryName) {
             alert("Nouveau fichier envoyé avec succés : " + title);
             return response.json();
          } else {
+            /* TODO Message d'erreur */
             console.error("Erreur:", response.status);
          }
       })

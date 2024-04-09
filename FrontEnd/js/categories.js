@@ -16,8 +16,7 @@ function generateFilters(categories) {
    btn.className = "filter";
    btn.dataset.id = 0;
    btn.innerText = "Tous";
-   btn.style.backgroundColor = "var(--firstColor)";
-   btn.style.color = "white";
+   btn.classList.add("active");
 
    sectionFilters.appendChild(filtersBar);
    filtersBar.appendChild(btn);

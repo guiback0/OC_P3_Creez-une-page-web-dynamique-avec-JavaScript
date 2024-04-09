@@ -362,6 +362,11 @@ button {
    cursor: pointer;
 }
 
+button.active {
+   color: white;
+   background-color: var(--firstColor);
+}
+
 button:hover {
    color: white;
    background-color: var(--firstColor);
