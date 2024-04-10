@@ -47,6 +47,10 @@ function setupFilters() {
    const filters = filtersBar.querySelectorAll(".filter");
 
    filtersBar.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("filter")) {
+         return;
+      }
+
       filters.forEach((filter) => {
          filter.classList.remove("active");
       });
