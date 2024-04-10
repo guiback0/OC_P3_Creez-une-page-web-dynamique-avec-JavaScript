@@ -113,8 +113,34 @@ function deleteProjects() {
          const id = e.target.dataset.id;
          deleteWork(id);
          sessionStorage.removeItem("works");
-         window.location.reload();
+         closeModal();
       });
+   });
+}
+
+//* Function to delete a work
+function deleteWork(id) {
+   let token = sessionStorage.getItem("token");
+
+   // Sending DELETE request to delete the specified work
+   fetch("http://localhost:5678/api/works/" + id, {
+      method: "DELETE",
+      headers: {
+         accept: "*/*",
+         authorization: `Bearer ${token}`,
+      },
+   }).then((response) => {
+      if (response.ok) {
+         alert("Projet supprimé avec succés");
+
+         worksData = worksData.filter((work) => work.id != id);
+
+         generateProjects(worksData);
+         generateProjectsOnModal(worksData);
+      } else {
+         alert("Erreur : " + response.status);
+         closeModal();
+      }
    });
 }
 
@@ -138,7 +164,7 @@ goingBack.addEventListener("click", (e) => {
    addPictureModal.style.display = "none";
 });
 
-//* Function to delete a work
+//* Event listener for change in picture input
 picturePreviewClick.addEventListener("click", () => {
    document.getElementById("photo").click();
 });
@@ -154,33 +180,6 @@ addPictureModal.addEventListener("change", (e) => {
    e.preventDefault();
    changeSubmitBtnColor();
 });
-
-//* Function to delete a work
-function deleteWork(id) {
-   let token = sessionStorage.getItem("token");
-
-   // Sending DELETE request to delete the specified work
-   fetch("http://localhost:5678/api/works/" + id, {
-      method: "DELETE",
-      headers: {
-         accept: "*/*",
-         authorization: `Bearer ${token}`,
-      },
-   }).then((response) => {
-      ƒ;
-      if (response.ok) {
-         alert("Projet supprimé avec succés");
-
-         worksData = worksData.filter((work) => work.id != id);
-
-         generateProjects(worksData);
-         generateProjectsOnModal(worksData);
-      } else {
-         alert("Erreur : " + response.status);
-         closeModal();
-      }
-   });
-}
 
 //* Function to post new work data
 function postNewWork() {
