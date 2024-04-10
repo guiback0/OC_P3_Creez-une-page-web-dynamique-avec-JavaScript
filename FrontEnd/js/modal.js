@@ -1,45 +1,101 @@
+//* Importing necessary functions/modules
 import { generateFiltersOnModal } from "./categories.js";
-import { generateProjects } from "./works.js";
+import { generateProjects } from "./index.js";
+import { fetchEndPoint } from "./api.js";
 
+//*********** Global ***********//
+//* Global Variables
 const modal = document.querySelector(".modal");
-const editModal = modal.querySelector("#editGallery");
 const editModalBtn = document.querySelector(".modify");
-const addPictureModal = modal.querySelector("#addPicture");
-const addPictureModalBtn = modal.querySelector("#addPictureBtn");
+const editModal = modal.querySelector("#editGallery");
 const closeModalBtn = modal.querySelectorAll(".fa-xmark");
-const pictureInput = modal.querySelector("#photo");
-const newWorkFormSubmit = modal.querySelector("#validate");
-const goingBack = modal.querySelector(".fa-arrow-left");
 
-let works = window.sessionStorage.getItem("works");
-
-if (works === null) {
-   const reponse = await fetch("http://localhost:5678/api/works");
-   works = await reponse.json();
-   const valueWorks = JSON.stringify(works);
-   window.sessionStorage.setItem("works", valueWorks);
-} else {
-   works = JSON.parse(works);
-}
-
+//* Event listener for edit modal button click
 editModalBtn.addEventListener("click", (e) => {
    e.preventDefault();
-
+   connect();
    modal.style.display = "flex";
-   generateProjectsOnModal(works);
+});
 
-   const deleteProjects = modal.querySelectorAll(".fa-trash-can");
-   deleteProjects.forEach((deleteProject) => {
-      deleteProject.addEventListener("click", (e) => {
-         e.preventDefault();
-         const id = e.target.dataset.id;
-         deleteWork(id);
-         sessionStorage.removeItem("works");
-         window.location.reload();
-      });
+//* Event listeners for close modal buttons
+closeModalBtn.forEach((closeModalBtn) => {
+   closeModalBtn.addEventListener("click", (e) => {
+      closeModal();
    });
 });
 
+//* Event listener for keydown event (Esc key)
+document.addEventListener("keydown", (e) => {
+   if (e.key === "Escape") {
+      closeModal();
+   }
+});
+
+//* Function to fetch works data
+async function connect() {
+   const id = "works";
+
+   try {
+      const works = await fetchEndPoint(id);
+
+      generateProjectsOnModal(works);
+   } catch (error) {
+      console.error(error);
+   }
+}
+
+//* Function to close the modal
+function closeModal() {
+   modal.style.display = "none";
+   editModal.style.display = "flex";
+   addPictureModal.style.display = "none";
+   document.getElementById("title").value = "";
+   document.getElementById("selectCategory").selectedIndex = 0;
+   document.getElementById("photo").value = null;
+   document.querySelector("#picturePreviewImg").src = null;
+   document.querySelector("#picturePreview").style.display = "none";
+   document.querySelector("#labelPhoto").style.display = "flex";
+}
+
+//* Function to generate projects in the modal
+function generateProjectsOnModal(works) {
+   const sectionProjects = editModal.querySelector(".modalContent");
+   sectionProjects.innerHTML = "";
+
+   // Loop through each work and create project elements
+   works.forEach((project) => {
+      const projectElement = document.createElement("figure");
+      projectElement.dataset.id = project.id;
+      projectElement.className = "miniWork";
+
+      const projectImage = document.createElement("img");
+      projectImage.src = project.imageUrl;
+      projectImage.alt = project.title;
+
+      const trashCan = document.createElement("i");
+      trashCan.classList.add("fa-solid", "fa-trash-can");
+      trashCan.dataset.id = project.id;
+
+      sectionProjects.appendChild(projectElement);
+      projectElement.append(projectImage, trashCan);
+   });
+
+   deleteProjects();
+}
+
+/* document.addEventListener("click", (e) => {
+   e.preventDefault();
+   if (!modal.contains(e.target) && modal.style.display === "flex") {
+      console.log("yes"); // Appeler la fonction closeModal si l'élément cliqué est en dehors du modal
+   }
+});  */
+
+//*********** Modal #editGallery ***********//
+//* Modal #editGallery Variables
+const addPictureModal = modal.querySelector("#addPicture");
+const addPictureModalBtn = modal.querySelector("#addPictureBtn");
+
+//* Event listener for add picture modal button click
 addPictureModalBtn.addEventListener("click", (e) => {
    e.preventDefault();
    editModal.style.display = "none";
@@ -47,74 +103,63 @@ addPictureModalBtn.addEventListener("click", (e) => {
    generateFiltersOnModal();
 });
 
-closeModalBtn.forEach((closeModalBtn) => {
-   closeModalBtn.addEventListener("click", (e) => {
-      modal.style.display = "none";
-      editModal.style.display = "flex";
-      addPictureModal.style.display = "none";
-      document.getElementById("title").value = "";
-      document.getElementById("selectCategory").selectedIndex = 0;
-      document.getElementById("photo").value = null;
-      document.querySelector("#picturePreviewImg").src = null;
-      document.querySelector("#picturePreview").style.display = "none";
-      document.querySelector("#labelPhoto").style.display = "flex";
-   });
-});
+//* Function to set up delete buttons for each project
+function deleteProjects() {
+   const deleteButtons = modal.querySelectorAll(".fa-trash-can");
 
+   deleteButtons.forEach((deleteButton) => {
+      deleteButton.addEventListener("click", (e) => {
+         e.preventDefault();
+         const id = e.target.dataset.id;
+         deleteWork(id);
+         sessionStorage.removeItem("works");
+         window.location.reload();
+      });
+   });
+}
+
+//*********** Modal #addPictureBtn ***********//
+//* Modal #addPictureBtn Variables
+const pictureInput = modal.querySelector("#photo");
+const newWorkFormSubmit = modal.querySelector("#validate");
+const goingBack = modal.querySelector(".fa-arrow-left");
+const picturePreviewClick = document.getElementById("picturePreview");
+
+//* Event listener for change in picture input
 pictureInput.addEventListener("change", (e) => {
    e.preventDefault();
    picturePreview();
 });
 
-addPictureModal.addEventListener("change", (e) => {
-   e.preventDefault();
-   changeSubmitBtnColor();
-});
-
-function changeSubmitBtnColor() {
-   const select = document.getElementById("selectCategory");
-   if (
-      document.getElementById("title").value !== "" &&
-      document.getElementById("photo").files[0] !== undefined &&
-      select.options[select.selectedIndex].id !== ""
-   ) {
-      newWorkFormSubmit.style.backgroundColor = "var(--firstColor)";
-   } else {
-      newWorkFormSubmit.style.backgroundColor = "#a7a7a7";
-   }
-}
-
+//* Event listener for picture preview click (going back on the first modal)
 goingBack.addEventListener("click", (e) => {
    e.preventDefault();
    editModal.style.display = "flex";
    addPictureModal.style.display = "none";
 });
 
-function generateProjectsOnModal(works) {
-   const sectionProjects = editModal.querySelector(".modalContent");
-   sectionProjects.innerHTML = "";
+//* Function to delete a work
+picturePreviewClick.addEventListener("click", () => {
+   document.getElementById("photo").click();
+});
 
-   for (let i = 0; i < works.length; i++) {
-      const project = works[i];
+//* Event listener for form submission to post new work
+newWorkFormSubmit.addEventListener("click", (e) => {
+   e.preventDefault();
+   postNewWork();
+});
 
-      const projectElement = document.createElement("figure");
-      projectElement.dataset.id = project.id;
-      projectElement.className = "miniWork";
-      const projectImage = document.createElement("img");
-      projectImage.src = project.imageUrl;
-      projectImage.alt = project.title;
-      const trashCan = document.createElement("i");
+//* Event listener for change in add picture modal
+addPictureModal.addEventListener("change", (e) => {
+   e.preventDefault();
+   changeSubmitBtnColor();
+});
 
-      trashCan.classList.add("fa-solid", "fa-trash-can");
-      trashCan.dataset.id = project.id;
-
-      sectionProjects.appendChild(projectElement);
-      projectElement.append(projectImage, trashCan);
-   }
-}
-
+//* Function to delete a work
 function deleteWork(id) {
    let token = sessionStorage.getItem("token");
+
+   // Sending DELETE request to delete the specified work
    fetch("http://localhost:5678/api/works/" + id, {
       method: "DELETE",
       headers: {
@@ -122,6 +167,7 @@ function deleteWork(id) {
          authorization: `Bearer ${token}`,
       },
    }).then((response) => {
+      ƒ;
       if (response.ok) {
          alert("Projet supprimé avec succés");
 
@@ -131,26 +177,12 @@ function deleteWork(id) {
          generateProjectsOnModal(worksData);
       } else {
          alert("Erreur : " + response.status);
-         /* closeModal; */
+         closeModal();
       }
    });
 }
 
-function picturePreview() {
-   const [file] = pictureInput.files;
-   if (file) {
-      document.querySelector("#picturePreviewImg").src =
-         URL.createObjectURL(file);
-      document.querySelector("#picturePreview").style.display = "flex";
-      document.querySelector("#labelPhoto").style.display = "none";
-   }
-}
-
-newWorkFormSubmit.addEventListener("click", (e) => {
-   e.preventDefault();
-   postNewWork();
-});
-
+//* Function to post new work data
 function postNewWork() {
    let token = sessionStorage.getItem("token");
    const select = document.getElementById("selectCategory");
@@ -160,6 +192,7 @@ function postNewWork() {
    const image = document.getElementById("photo").files[0];
    let isValid = formValidation(image, title, categoryId);
 
+   // Check if form data is valid
    if (isValid === true) {
       const formData = new FormData();
       formData.append("image", image);
@@ -168,25 +201,8 @@ function postNewWork() {
       sendNewData(token, formData, title, categoryName);
    }
 }
-/* TODO : raccourcir */
 
-function formValidation(image, title, categoryId) {
-   if (image == undefined) {
-      alert("Veuillez ajouter une image");
-      return false;
-   }
-   if (title.trim().length == 0) {
-      alert("Veuillez ajouter un titre");
-      return false;
-   }
-   if (categoryId == "") {
-      alert("Veuillez choisir une catégorie");
-      return false;
-   } else {
-      return true;
-   }
-}
-
+//* Function to send new work data to the server
 function sendNewData(token, formData, title) {
    fetch("http://localhost:5678/api/works", {
       method: "POST",
@@ -200,14 +216,51 @@ function sendNewData(token, formData, title) {
             alert("Nouveau fichier envoyé avec succés : " + title);
             return response.json();
          } else {
-            /* TODO Message d'erreur */
             console.error("Erreur:", response.status);
          }
       })
+
       .then(() => {
          document.querySelector(".modal").style.display = "none";
          sessionStorage.removeItem("works");
          location.reload();
       })
       .catch((error) => console.error("Erreur:", error));
+}
+
+//* Function to validate form fields
+function formValidation(image, title, categoryId) {
+   if (image === undefined || title.trim().length === 0 || categoryId === "") {
+      alert("Veuillez remplir tous les champs");
+      return false;
+   } else {
+      return true;
+   }
+}
+
+//* Function to preview selected image
+function picturePreview() {
+   const [file] = pictureInput.files;
+
+   if (file) {
+      document.querySelector("#picturePreviewImg").src =
+         URL.createObjectURL(file);
+      document.querySelector("#picturePreview").style.display = "flex";
+      document.querySelector("#labelPhoto").style.display = "none";
+   }
+}
+
+//* Function to change submit button color based on form validation
+function changeSubmitBtnColor() {
+   const select = document.getElementById("selectCategory");
+
+   if (
+      document.getElementById("title").value !== "" &&
+      document.getElementById("photo").files[0] !== undefined &&
+      select.options[select.selectedIndex].id !== ""
+   ) {
+      newWorkFormSubmit.classList.add("active");
+   } else {
+      newWorkFormSubmit.classList.remove("active");
+   }
 }

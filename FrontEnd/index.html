@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="./css/global.css">
 	<link rel="stylesheet" href="./css/modal.css">
 	<script type="module" src="./js/categories.js"></script>
-	<script type="module" src="./js/works.js"></script>
+	<script type="module" src="./js/index.js"></script>
 	<script type="module" src="./js/modal.js"></script>
 </head>
 
@@ -25,7 +25,7 @@
 	<div class="editBanner" id="editBanner">
 		<i class="fa-solid fa-pen-to-square"></i>
 		<p>Mode Edition</p>
-	  </div>
+	</div>
 
 	<header>
 		<a href="index.html">
@@ -66,15 +66,14 @@
 					<div id="labelPhoto">
 						<i class="fa-regular fa-image"></i>
 						<label for="photo" class="photo" id="addPicLabel">+ Ajouter photo</label>
-						<input type="file" class="photo" name="photo" id="photo" accept="image/png, image/jpeg"
-							required>
+						<input type="file" class="photo" name="photo" id="photo" accept="image/png, image/jpeg">
 						<span>jpg, png : 4mo max</span>
 					</div>
 					<div id="picturePreview">
-						<img src="" alt="votre image" id="picturePreviewImg">
+						<img src="#" alt="votre image" id="picturePreviewImg">
 					</div>
 					<label for="title">Titre</label>
-					<input type="text" id="title" name="title" required>
+					<input type="text" id="title" name="title">
 					<label for="selectCategory">Catégorie</label>
 					<select id="selectCategory" name="selectCategory">
 					</select>

@@ -181,6 +181,7 @@ input.photo {
 
 #title {
    margin-bottom: 11px;
+   z-index: 1000;
 }
 
 select {
@@ -199,4 +200,8 @@ select {
    background-color: #a7a7a7;
    height: 36px;
    width: 42%;
+}
+
+#validate.active {
+   background-color: var(--firstColor);
 }
